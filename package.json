@@ -3,7 +3,6 @@
   "type": "module",
   "version": "1.0.0",
   "description": "",
-  "author": "jaluova <jaluova.xxx.edu.cn>",
   "license": "MIT",
   "engines": {
     "node": "^18.20.0 || >=20.0.0"

@@ -6,8 +6,36 @@ const demoNote = defineNoteConfig({
   sidebar: ['', 'foo', 'bar'],
 })
 
+const ACMNote = defineNoteConfig({
+  dir: '算法',
+  link: '/algorithm',
+  sidebar: [
+    '',
+    {
+      text: '算法',
+      collapsed: false,
+      icon: 'ph:graph',
+      items: 'auto',
+    }
+  ]
+})
+
+const CTFNote = defineNoteConfig({
+  dir: '安全',
+  link: '/security',
+  sidebar: [
+    '',
+    {
+      text: '安全',
+      collapsed: false,
+      icon: 'ph:graph',
+      items: 'auto',
+    }
+  ]
+})
+
 export const notes = defineNotesConfig({
   dir: 'notes',
   link: '/',
-  notes: [demoNote],
+  notes: [demoNote, ACMNote, CTFNote],
 })
