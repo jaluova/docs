@@ -3,6 +3,7 @@ title: 前缀和
 createTime: 2025/02/04 11:28:00
 tags:
   - 算法
+  - 离散
   - 前缀和
 permalink: /algorithm/prefix/
 ---
@@ -111,6 +112,30 @@ $$xor(L,R)=pre[R] \oplus pre[L-1]$$
 
 例如`二维前缀和`等，本质上是`容斥原理`
 
+#### 补充
+
+二维前缀和的计算
+```cpp
+auto a = vector(n, vector<int>(m));
+auto sum = vector(n + 1, vector<int>(m + 1));
+
+// 先考虑current row，再加上上一行的影响
+for (int i = 1; i <= n; i++) {
+    partial_sum(a.begin(), a.end(), sum[i].begin());
+    for (int j = 1; j <= m; j++) {
+        sum[i][j] += sum[i - 1][j];
+    }
+}
+
+// 根据周边的几块，利用容斥原理
+for (int i = 1; i <= m; i++) {
+    for (int j = 1; j <= n; j++) {
+        sum[i][j] =
+            a[i][j] + sum[i - 1][j] + sum[i][j - 1] - sum[i - 1][j - 1];
+    }
+}
+```
+
 ### 普遍意义
 
 单纯的表示当前到开始，进行一种运算的结果，不一定要有可逆性质
@@ -124,3 +149,4 @@ prefix[i] = max(max(max(arr[0], arr[1]), arr[2]), arr[3]); // 前缀最大值
 ```cpp
 partial_sum(arr.rbegin(), arr.rend(), pre.rbegin());
 ```
+> 参考[LeetCode接雨水](https://leetcode.cn/problems/trapping-rain-water/description/)
