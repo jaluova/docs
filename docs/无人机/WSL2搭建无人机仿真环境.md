@@ -89,7 +89,7 @@ source ~/.bashrc
 
 使用vim是不是还挺麻烦的？其实我们可以用windows上的`vs code`来修改文件（为什么不早说😢）
 
-首先，在vs code上找到`WSL`插件并下载,启用
+首先，在vs code上找到`WSL`插件并下载，启用
 
 接着，只需要在终端输入
 
@@ -130,7 +130,7 @@ wget http://fishros.com/install -O fishros
 
 ## 安装MAVROS
 
-MAVROS是一个ROS（Robot Operating System）软件包 ，有了它就可以让ROS与飞控通信。
+MAVROS是一个ROS软件包，有了它就可以让ROS与飞控通信。
 
 ```sh
 sudo apt install ros-$ROS_DISTRO-mavros ros-$ROS_DISTRO-mavros-extras
@@ -143,7 +143,7 @@ chmod a+x ./install_geographiclib_datasets.sh
 sudo ./install_geographiclib_datasets.sh
 ```
 
-下载完成后输入`roscd mavros`,如果发现跳转到了`/opt/ros/noetic/share/mavros`目录，即代表安装成功
+下载完成后输入`roscd mavros`，如果发现跳转到了`/opt/ros/noetic/share/mavros`目录，即代表安装成功
 
 ## 下载QGroundControl
 
@@ -199,11 +199,11 @@ chmod +x ubuntu.sh
 # 脚本执行时间，跟个人网络有关，可能需要一段时间
 ```
 > [!tip]
-> 这是官方提供的脚本 有两个可选参数
+> 这是官方提供的脚本，有两个可选参数
 >
-> --no-sim-tools   不安装仿真环境
+> `--no-sim-tools`   不安装仿真环境
 >
-> --no-nuttx   不安装交叉编译环境
+> `--no-nuttx`   不安装交叉编译环境
 >
 > 如果需要自己编译飞控固件，烧录到飞控中，那就需要交叉编译环境
 
@@ -219,11 +219,9 @@ sudo apt-get install ros-$ROS_DISTRO-gazebo-ros-pkgs ros-$ROS_DISTRO-gazebo-ros-
 
 ```sh
 cd ~/PX4_Firmware
-make px4_sitl_default gazebo   # 这步可能有点慢，跟 ubuntu 的配置有关
+make px4_sitl_default gazebo   # 这步可能有点慢，跟电脑配置有关
 ```
 ![](img/4.png)
-
-可以看到小飞机了就可以
 
 ## 测试
 
@@ -248,7 +246,7 @@ export ROS_PACKAGE_PATH=$ROS_PACKAGE_PATH:~/PX4_Firmware/Tools/sitl_gazebo
 
 ![](img/5.png)
 
-这时候，我们就可以在任何目录下，启用仿真环境，输入
+这时候，我们就可以==在任何目录下，启用仿真环境==，输入
 
 ```sh
 roslaunch px4 mavros_posix_sitl.launch
@@ -264,17 +262,12 @@ rostopic echo /mavros/state | grep connected    # 只查看 connected 信息
 ```
 ![](img/7.png)
 
-> [!tip]
-> rostopic echo /mavros/state可以查看全部信息
->
-> `|`,`grep`指令搭配可以过滤输出内容，这些都是`shell`的基本用法
-
 我们还可以打开QGC地面站来对无人机进行操控
 
 ![](img/9.png)
 
 ## 总结 & 参考文章
 
-OK😊!到此，我们的ROS1环境就基本配置完成了。我这篇文章主要参考的是[(最新)ubuntu搭建PX4无人机仿真环境(4) ——仿真环境搭建(以Ubuntu 18.04,ROS1 Melodic 为例)](https://blog.csdn.net/weixin_55944949/article/details/130895608)，也利用了不少相关资源，在此表示非常感谢！！
+OK😊！到此，我们的无人机仿真环境就基本配置完成了。我这篇文章主要参考的是[(最新)ubuntu搭建PX4无人机仿真环境(4) ——仿真环境搭建(以Ubuntu 18.04,ROS1 Melodic 为例)](https://blog.csdn.net/weixin_55944949/article/details/130895608)，也利用了不少相关资源，在此表示非常感谢！！
 
 如果在配置过程中遇到了问题，请及时在底部评论区留言。
