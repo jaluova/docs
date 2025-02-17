@@ -9,7 +9,7 @@ export default defineUserConfig({
   description: 'My blog',
 
   head: [
-    ['link', { rel: 'icon', href: '/noto--open-book.png' }],
+    ['link', { rel: 'icon', href: 'logos--growth-book-icon.svg' }],
     // ['script', {src: "https://cdn.jsdelivr.net/pyodide/v0.18.1/full/pyodide.js"}],
   ],
 
