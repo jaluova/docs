@@ -5,6 +5,7 @@ tags:
     - 算法
     - 离散
     - 差分
+icon: 'tabler:letter-d'
 permalink: /algorithm/difference/
 ---
 

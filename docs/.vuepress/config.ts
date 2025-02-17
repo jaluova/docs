@@ -27,13 +27,13 @@ export default defineUserConfig({
       mode: 'block',
       info: [
         {
-          username: 'pengzhanbo', // github username
+          username: 'jaluova', // github username
           url: 'https://github.com/jaluova',
           avatar: 'https://q.qlogo.cn/headimg_dl?dst_uin=1849367556&spec=640&img_type=jpg',
         }
       ]
     },
-    changelog: true,
+    changelog: false,
 
     /**
      * 博客
