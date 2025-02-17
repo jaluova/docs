@@ -8,6 +8,11 @@ export default defineUserConfig({
   title: 'unf01d',
   description: 'My blog',
 
+  head: [
+    ['link', { rel: 'icon', href: '/noto--open-book.png' }],
+    // ['script', {src: "https://cdn.jsdelivr.net/pyodide/v0.18.1/full/pyodide.js"}],
+  ],
+
   bundler: viteBundler(),
   shouldPrefetch: false, // 站点较大，页面数量较多时，不建议启用
 
@@ -22,18 +27,19 @@ export default defineUserConfig({
 
     /* 页内信息 */
     // editLink: true,
-    // lastUpdated: true,
-    contributors: {
-      mode: 'block',
-      info: [
-        {
-          username: 'jaluova', // github username
-          alias: ['jaluova'],
-          url: 'https://github.com/jaluova',
-          avatar: 'https://q.qlogo.cn/headimg_dl?dst_uin=1849367556&spec=640&img_type=jpg',
-        }
-      ]
-    },
+    lastUpdated: false,
+    contributors: false,
+    // contributors: {
+    //   mode: 'block',
+    //   info: [
+    //     {
+    //       username: 'jaluova', // github username
+    //       alias: ['jaluova'],
+    //       url: 'https://github.com/jaluova',
+    //       avatar: 'https://q.qlogo.cn/headimg_dl?dst_uin=1849367556&spec=640&img_type=jpg',
+    //     }
+    //   ]
+    // },
     changelog: false,
 
     /**
