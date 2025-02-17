@@ -3,6 +3,7 @@ title: KMP
 tags:
     - 算法
     - 字符串
+icon: 'tabler:letter-k'
 createTime: 2025/02/14 14:45:59
 permalink: /algorithm/6wg2q15r/
 ---

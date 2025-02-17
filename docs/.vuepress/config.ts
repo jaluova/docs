@@ -28,6 +28,7 @@ export default defineUserConfig({
       info: [
         {
           username: 'jaluova', // github username
+          alias: ['jaluova'],
           url: 'https://github.com/jaluova',
           avatar: 'https://q.qlogo.cn/headimg_dl?dst_uin=1849367556&spec=640&img_type=jpg',
         }
