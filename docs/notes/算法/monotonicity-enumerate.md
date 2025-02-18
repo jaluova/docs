@@ -89,6 +89,8 @@ for (int l = 0; l < n; l++) {
 > [!tip]
 > 在这个图中，行进路线一定是往右或往下的，最多遍历$2N$个位置
 
+## 推广
+
 我们还可以更进一步地优化这个代码
 
 将$r$定义在外层，使其在整个枚举期间不会被重置
@@ -102,15 +104,54 @@ for (int l = 0, r = 0; l < n; l++) {
     }
 }
 ```
-更进一步，我们不需要前缀和，可以在枚举时维护区间的关键值
+更进一步，我们不需要计算前缀和，可以在枚举时维护区间的关键值
 
 ```cpp
 int sum = 0;
-for (int l = 0, r = 0; l < n; l++) {
-    
+for (int l = 0, r = 0; l < n;) {
+    if (r < n && sum < target)
+        sum += arr[r++];
+    else {
+        if (sum >= target) ans = min(ans, r - l);
+        sum -= arr[l++];
+    }
+}
+```
+如果$r$可以继续前进，并且关键值不满足条件，那么$r$就往前，否则$l$往前
+
+如果关键值满足条件，则更新答案
+
+重点可以归为==四步==：
+
+1. 判断是否满足条件
+
+2. 增加一个元素时，如何维护区间关键值
+
+3. 删除一个元素时，如何维护区间关键值
+
+4. 找到满足的条件时，如何更新答案
+
+我们可以把这四步==抽象为一个模板函数==
+
+```cpp
+template<typename M, typename I, typename R, typename U>
+void increaseEnumerate(int s, int e,
+                       const M& match,
+                       const I& insert,
+                       const R& remove,
+                       const U& update) {
+    for (int l = s, r = s; l <= e; ) {
+        if (l < r && match(l, r - 1)) {
+            update(l, r - 2);
+            remove(l++, r);
+        } else if (r <= e) {
+            insert(l, r++);
+        } else {
+            update(l, r - 1);
+            remove(l++, r);
+        }
+    }
 }
 ```
 
-
-## 抽象
 
