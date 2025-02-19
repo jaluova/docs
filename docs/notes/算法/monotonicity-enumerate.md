@@ -94,6 +94,7 @@ for (int l = 0; l < n; l++) {
 我们还可以更进一步地优化这个代码
 
 将$r$定义在外层，使其在整个枚举期间不会被重置
+
 ```cpp
 for (int l = 0, r = 0; l < n; l++) {
     for (; r < n; r++) {
@@ -154,4 +155,47 @@ void increaseEnumerate(int s, int e,
 }
 ```
 
+返回的区间为==不满足条件的最大区间==，因为这样可以应对很多种不一样的情况。
 
+这个最大区间，是当$l$确定，使得不能满足条件时，$r$取得最大，我们需要这个$r$单调递增。
+
+即增加一个元素，只可能使条件由不满足变为满足，而不可能使条件由满足变为不满足。
+减少一个元素，只可能使得条件由不满足变为满足，而不可能使条件由不满足变为满足。
+
+## 拓展
+
+由单调递增模型，我们也可以得出==单调递减模型==。
+
+:[simple-icons:leetcode]:[力扣167题两数之和II-输入有序数组](https://leetcode.cn/problems/two-sum-ii-input-array-is-sorted/description/)
+
+
+```cpp
+for (int l = 0, r = n - 1; l < r;) {
+    if (numbers[l] + numbers[r] >= target) {
+        if (numbers[r] + numbers[l] == target) ans = {l + 1, r + 1};
+        r--;
+    } else {
+        l++;
+    }
+}
+```
+
+这道题还能从另一种角度思考，通过单调性来减少枚举次数，称为==单调性剪枝==
+
+```cpp
+for (int l = 0, r = n - 1; l < r;) {
+    if (numbers[l] + numbers[r] > target) {
+        r--;
+    } else if (numbers[l] + numbers[r] < target) {
+        l++;
+    } else {
+        ans = {l + 1, r + 1};
+        break;
+    }
+}
+```
+
+
+## 难点
+
+单调性的条件和题目要求条件可能不一致，在做题时需要灵活转化！！
