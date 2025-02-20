@@ -4,7 +4,7 @@ createTime: 2025/02/17 17:44:39
 tags:
     - 算法
     - 枚举
-icon: 'tabler:letter-m'
+icon: 'streamline:graph-bar-increase-solid'
 permalink: /algorithm/monotonicity-enumerate/
 ---
 

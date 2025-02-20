@@ -5,7 +5,7 @@ tags:
   - 算法
   - 离散
   - 前缀和
-icon: 'tabler:letter-p'
+icon: 'tabler:sum'
 permalink: /algorithm/prefix/
 ---
 

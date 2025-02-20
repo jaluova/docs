@@ -1,7 +1,7 @@
 ---
 title: 动态规划初探
 createTime: 2025/02/17 17:46:38
-icon: 'mynaui:letter-d-hexagon'
+icon: 'entypo:flow-tree'
 permalink: /algorithm/dynamic-progaming/
 ---
 

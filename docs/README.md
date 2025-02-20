@@ -9,7 +9,7 @@ config:
     hero:
       name: unf01d
       tagline: There is no end to learning.
-      text: 一个正在放寒假的闲人
+      text: 
       actions:
         -
           theme: brand

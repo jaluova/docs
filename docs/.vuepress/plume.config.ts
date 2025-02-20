@@ -40,7 +40,7 @@ export default defineThemeConfig({
   profile: {
     avatar: 'https://q.qlogo.cn/headimg_dl?dst_uin=1849367556&spec=640&img_type=jpg',
     name: 'unf01d',
-    description: '一个正在放寒假的闲人',
+    description: '',
     circle: true,
     // location: '',
     organization: '南京航空航天大学',

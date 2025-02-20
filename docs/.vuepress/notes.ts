@@ -34,8 +34,22 @@ const CTFNote = defineNoteConfig({
   ]
 })
 
+const DataNote = defineNoteConfig({
+  dir: '数据结构',
+  link: '/data-struct',
+  sidebar: [
+    '',
+    {
+      text: '数据结构',
+      collapsed: false,
+      icon: 'ph:graph',
+      items: 'auto',
+    }
+  ]
+})
+
 export const notes = defineNotesConfig({
   dir: 'notes',
   link: '/',
-  notes: [demoNote, ACMNote, CTFNote],
+  notes: [demoNote, ACMNote, CTFNote, DataNote],
 })
