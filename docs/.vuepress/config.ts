@@ -109,12 +109,12 @@ export default defineUserConfig({
        * markdown enhance
        * @see https://theme-plume.vuejs.press/config/plugins/markdown-enhance/
        */
-      // markdownEnhance: {
-      //   chartjs: true,
-      //   echarts: true,
-      //   mermaid: true,
-      //   flowchart: true,
-      // },
+      markdownEnhance: {
+        chartjs: true,
+        // echarts: true,
+        // mermaid: true,
+        // flowchart: true,
+      },
 
       /**
        *  markdown power

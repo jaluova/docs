@@ -48,8 +48,22 @@ const DataNote = defineNoteConfig({
   ]
 })
 
+const LanguageNote = defineNoteConfig({
+  dir: '语言',
+  link: '/language',
+  sidebar: [
+    '',
+    {
+      text: '语言',
+      collapsed: false,
+      icon: 'ph:graph',
+      items: 'auto',
+    }
+  ]
+})
+
 export const notes = defineNotesConfig({
   dir: 'notes',
   link: '/',
-  notes: [demoNote, ACMNote, CTFNote, DataNote],
+  notes: [demoNote, ACMNote, CTFNote, DataNote, LanguageNote],
 })
