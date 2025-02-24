@@ -157,3 +157,78 @@ for (size_t i = 0; i < ans1.size(); i++) {
 `next_permutation(Iterator begin, Iterator end)`
 
 复杂度：==$O(N)$==
+
+`prev_permutation`则是从后往前生成
+
+## unique
+
+“移除”==相邻==的相同元素，并返回新序列的尾部。（不会直接删除，需要自行删除）
+
+`unique(Iterator begin, Iterator end, Function matcher)`
+
+复杂度：==$O(N)$==
+
+::: code-tabs
+
+@tab 示例一
+
+```cpp
+// 不手动删除
+vector<int> a = {1, 1, 1, 1, 2, 2, 2, 1, 1, 1, 1};
+ranges::unique(a);
+for (auto &x : a) cout << x << ' ';
+cout << endl;
+
+// 输出
+// 1 2 1 1 2 2 2 1 1 1 1 
+```
+@tab 示例二
+
+
+```cpp
+// 手动删除
+vector<int> a = {1, 1, 1, 1, 2, 2, 2, 1, 1, 1, 1};
+a.erase(unique(a.begin(), a.end()), a.end());
+for (auto &x : a) cout << x << ' ';
+cout << endl;
+
+// 输出
+// 1 2 1
+```
+
+:::
+
+### 离散化
+
+```
+    1 1 1 1000000000
+->  1 1000000000
+->  1 2
+```
+
+
+### 自定义“相同”
+
+```cpp
+vector<int> a = {1, 1, 10, 20, 30, 200, 2, 1, 10, -5, -8};
+a.erase(
+    unique(a.begin(), a.end(), [](int a, int b) { return abs(a - b) <= 10; }),
+    a.end());
+for (auto &x : a) cout << x << ' ';
+cout << endl;
+// 输出
+// 1 20 200 2
+```
+
+
+## vector
+
+时间复杂度：
+
+`push_back/emplace_back`:$O(1)$
+
+`pop_back`:$O(1)$
+
+`insert`:$O(N)$
+
+`erase`:$O(N)$
