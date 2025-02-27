@@ -84,7 +84,7 @@ benchmark("[nth_element]", [&]() {
 });
 ```
 输出内容
-```output
+```
 801552353
 [sort] execution time: 467 ms
 801552353
@@ -144,7 +144,7 @@ for (size_t i = 0; i < ans1.size(); i++) {
 }
 ```
 输出内容
-```output
+```
 [for] execution time: 987 ms
 [lower_bound] execution time: 0 ms
 ```
@@ -232,3 +232,168 @@ cout << endl;
 `insert`:$O(N)$
 
 `erase`:$O(N)$
+
+```cpp
+int n = 100000;
+vector<int> a;
+benchmark("push_back", [&]() {
+  for (int i = 0; i < n; i++) a.push_back(rnd());
+});
+benchmark("pop_back", [&]() {
+  for (int i = 0; i < n; i++) a.pop_back();
+});
+vector<int> b;
+benchmark("insert", [&]() {
+  for (int i = 0; i < n; i++) b.insert(b.begin(), rnd());
+});
+benchmark("erase", [&]() {
+  for (int i = 0; i < n; i++) b.erase(b.begin());
+});
+
+// 输出
+// push_back execution time: 0 ms
+// pop_back execution time: 0 ms
+// insert execution time: 249 ms
+// erase execution time: 176 ms
+```
+```cpp
+int n = 100000000;
+benchmark("push_back", [&]() {
+  vector<int> a;
+  for (int i = 0; i < n; i++) a.push_back(rnd());
+});
+benchmark("init", [&]() {
+  vector<int> a(n);
+  for (int i = 0; i < n; i++) a[i] = rnd();
+});
+// 输出
+// push_back execution time: 268 ms
+// init execution time: 192 ms
+```
+
+```cpp
+int n = 100000000;
+benchmark("push_back", [&]() {
+  vector<int> a;
+  for (int i = 0; i < n; i++) a.push_back(rnd());
+});
+benchmark("init", [&]() {
+  vector<int> a(n);
+  for (auto &x : a) x = rnd();
+});
+benchmark("reserve", [&]() {
+  vector<int> a;
+  a.reserve(2 * n);
+  for (int i = 0; i < n; i++) a.push_back(rnd());
+  cout << a.size() << '\n';
+});
+
+// 输出
+// push_back execution time: 272 ms
+// init execution time: 187 ms
+// 100000000
+// reserve execution time: 180 ms
+```
+
+## queue & stack & dequeue
+
+`queue`与`stack`都是基于`dequeue`实现的。
+
+### deque VS vector
+
+deque虽然在两端的push、pop操作十分优秀，但是下标访问性能不如vector。
+
+```cpp
+int n = 100000000;
+deque<int> dq;
+vector<int> v;
+
+benchmark("push_back", [&]() {
+  for (int i = 0; i < n; i++) dq.push_back(rnd());
+});
+benchmark("vector push_back", [&]() {
+  for (int i = 0; i < n; i++) v.push_back(rnd());
+});
+benchmark("access", [&]() {
+  for (int i = 0; i < n; i++) dq[i] = i;
+});
+benchmark("vector access", [&]() {
+  for (int i = 0; i < n; i++) v[i] = i;
+});
+
+// 输出
+// push_back execution time: 356 ms
+// vector push_back execution time: 377 ms
+// access execution time: 91 ms
+// vector access execution time: 39 ms
+```
+
+
+## priority_queue
+
+本质：==堆==
+
+默认为`大顶堆`，`top`永远是最大的元素。
+
+如果想要使用`小顶堆`，请使用`priority_queue<int, vector<int>, greater<int>>`
+
+若想要实现自定义，可以`priority_queue<int, vector<int>, decltype([](int a, int b){ return a > b; })>`
+
+
+```cpp
+priority_queue<int> pq;
+int n = 10000000;
+vector<int> a(n);
+for (auto &x : a) x = rnd();
+vector<int> sorted(n);
+benchmark("push & pop", [&]() {
+  for (int i = 0; i < n; i++) pq.push(a[i]);
+  for (int i = 0; i < n; i++) {
+    sorted[i] = pq.top();
+    pq.pop();
+  }
+});
+benchmark("sort", [&]() { ranges::sort(a, greater<int>()); });
+for (int i = 0; i < n; i++) {
+  if (sorted[i] != a[i]) cout << "error\n";
+}
+
+// 输出
+// push & pop execution time: 1144 ms
+// sort execution time: 453 ms
+```
+
+
+## set
+
+`set`
+
+`multiset`
+
+`unordered_set`
+
+```cpp
+set<int> s{1, 1, 8, 4, 2, 2, 4, 8};
+multiset<int> ms{1, 1, 8, 4, 2, 2, 4, 8};
+unordered_set<int> us{1, 1, 8, 4, 2, 2, 4, 8};
+
+for (auto &x : s) cout << x << ' ';
+cout << '\n';
+for (auto &x : ms) cout << x << ' ';
+cout << '\n';
+for (auto &x : us) cout << x << ' ';
+cout << '\n';
+
+// 输出
+// 1 2 4 8 
+// 1 1 2 2 4 4 8 8 
+// 2 4 8 1
+```
+## map
+
+`map`
+
+`multiamp`
+
+`unordered_map`
+
