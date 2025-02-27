@@ -2,6 +2,8 @@
 title: 常用STL
 icon: 'solar:library-bold-duotone'
 createTime: 2025/02/23 09:53:25
+tags:
+  - cpp
 permalink: /language/stl/
 ---
 
