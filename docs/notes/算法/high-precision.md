@@ -1,7 +1,8 @@
 ---
 title: 高精度
 createTime: 2025/03/05 19:36:39
-permalink: /algorithm/3xtmn6vq/
+icon: 'tabler:number-99-small'
+permalink: /algorithm/high-precision/
 ---
 
 ```cpp
