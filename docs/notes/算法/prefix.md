@@ -151,3 +151,45 @@ prefix[i] = max(max(max(arr[0], arr[1]), arr[2]), arr[3]); // 前缀最大值
 partial_sum(arr.rbegin(), arr.rend(), pre.rbegin());
 ```
 > 参考[LeetCode接雨水](https://leetcode.cn/problems/trapping-rain-water/description/)
+
+
+
+```cpp
+#include <iostream>
+#include <numeric>
+#include <vector>
+
+using namespace std;
+
+int main() {
+  int n, m, r;
+  cin >> n >> m >> r;
+  auto img = vector(n, vector(m, 0));
+  auto sum = vector(n + 1, vector(m + 1, 0));
+  for (auto& row : img)
+    for (auto& x : row) cin >> x;
+
+  for (int i = 0; i < n; i++) {
+    partial_sum(img[i].begin(), img[i].end(), sum[i + 1].begin() + 1);
+    if (!i) continue;
+    for (int j = 1; j <= m; j++) {
+      sum[i + 1][j] += sum[i][j];
+    }
+  }
+
+  for (int i = 1; i <= n; i++) {
+    for (int j = 1; j <= m; j++) {
+      int up = max(1, i - r);
+      int down = min(n, i + r);
+      int right = min(m, j + r);
+      int left = max(1, j - r);
+      int s = (right - left + 1) * (down - up + 1);
+      int ans = sum[down][right] - sum[up - 1][right] - sum[down][left - 1] +
+                sum[up - 1][left - 1];
+      ans /= s;
+      cout << ans << ' ';
+    }
+    cout << endl;
+  }
+}
+```
