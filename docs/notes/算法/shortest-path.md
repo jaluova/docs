@@ -61,7 +61,7 @@ int main() {
   vector<E> edges(m);
   for (int i = 0; i < m; i++) cin >> edges[i].u >> edges[i].v >> edges[i].w;
 
-  auto spfa = [&]() {
+  auto bellmanford = [&]() {
     vector<ll> dis(n + 1, INF);
     dis[s] = 0;
     bool flag = false;
@@ -80,7 +80,7 @@ int main() {
     for (int i = 1; i <= n; i++) cout << dis[i] << ' ';
     cout << endl;
   };
-  spfa();
+  spfbellmanford();
 }
 ```
 
@@ -88,8 +88,51 @@ int main() {
 
 ```cpp
 // https://www.luogu.com.cn/problem/P3371
+#include <iostream>
+#include <queue>
+#include <vector>
 
+using namespace std;
+using ll = long long;
+constexpr ll INF = (1ll << 31) - 1;
 
+struct T {
+  int v;
+  int w;
+};
+
+int main() {
+  int n, m, s;
+  cin >> n >> m >> s;
+  vector<T> map[n + 1];
+  while (m--) {
+    int u, v, w;
+    cin >> u >> v >> w;
+    map[u].emplace_back(v, w);
+  }
+
+  auto spfa = [&]() {
+    queue<int> q;
+    vector<ll> dis(n + 1, INF);
+    q.push(s);
+    dis[s] = 0;
+    while (!q.empty()) {
+      int u = q.front();
+      q.pop();
+      for (auto [v, w] : map[u]) {
+        if (dis[u] + w < dis[v]) {
+          dis[v] = dis[u] + w;
+          q.push(v);
+        }
+      }
+    }
+    for (int i = 1; i <= n; i++) {
+      cout << dis[i] << ' ';
+    }
+    cout << '\n';
+  };
+  spfa();
+}
 ```
 
 ## Dijkstra
