@@ -99,13 +99,87 @@ cout << endl;
 
 vector的基础用法大致为以上这些（当然它还有很多其他很好用的功能）。
 
+## queue & stack
 
-## queue
+> [!warning]
+> 需要添加`queue`&`stack`头文件
+> 
+
+### stack
+
+后进先出
+
+```cpp
+stack<int> s;
+for (int i = 1; i <= 5; i++) {
+  s.push(i);
+}
+// 如果栈不为空，则循环继续
+while (!s.empty()) {
+  int x = s.top();
+  s.pop();
+  cout << x << ' ';
+}
+// 输出 5 4 3 2 1
+```
+
+### queue
+
+先进先出
+
+```cpp
+queue<int> q;
+for (int i = 1; i <= 5; i++) {
+  q.push(i);
+}
+while (!q.empty()) {
+  int x = q.front();
+  q.pop();
+  cout << x << ' ';
+}
+// 输出 1 2 3 4 5
+```
 
 ### priority_queue
 
+队首元素总是最大的
 
-## stack
+```cpp
+priority_queue<int> q;
+vector<int> a = {1, 5, 3, 2, 4, 7};
+for (auto x : a) {
+  q.push(x);
+}
+while (!q.empty()) {
+  int x = q.top();
+  cout << x << ' ';
+  q.pop();
+}
+// 输出 7 5 4 3 2 1
+```
+队首元素总是最小的
 
+```cpp
+priority_queue<int, vector<int>, greater<int>> q;
+```
 
-## expansion:algorithm
+## 拓展：常用算法
+
+> [!warning]
+> 需要添加`algorithm`头文件
+> 
+
+### sort
+
+基于快速排序的混合排序（堆排序，插入排序），性能相当出色。
+
+```cpp
+vector<int> a = {1, 5, 3, 2, 4, 7};
+sort(a.begin(), a.end());
+for (auto x : a) cout << x << ' ';
+// 输出 1 2 3 4 5 7
+
+sort(a.begin(), a.end(), greater<int>());
+for (auto x : a) cout << x << ' ';
+// 输出 7 5 4 3 2 1
+```
