@@ -5,6 +5,22 @@ createTime: 2025/03/12 11:19:50
 permalink: /algorithm/jvn2jtqj/
 ---
 
+## 模板
+
+```cpp
+template <typename T, typename M>
+T get_first_match(T l, T r, M match) {
+  while (l <= r) {
+    T mid = l + (r - l) / 2;
+    if (match(mid))
+      r = mid - 1;
+    else
+      l = mid + 1;
+  }
+  return l;
+}
+```
+
 ```cpp
 #include <iostream>
 #include <vector>
