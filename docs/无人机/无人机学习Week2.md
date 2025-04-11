@@ -436,7 +436,7 @@ int main(int argc, char**argv)
 ## 5 激光雷达避障
 
 ```sh
-roslaunch px4 mavros_posix_sitl.launch vehicle:=iris_rplidarW
+roslaunch px4 mavros_posix_sitl.launch vehicle:=iris_rplidar
 # rviz
 rosrun tf static_transform_publisher 0 0 0 0 0 0 map rplidar_link 5.5
 ```
