@@ -436,7 +436,7 @@ int main(int argc, char**argv)
 ## 5 激光雷达避障
 
 ```sh
-roslaunch px4 mavros_posix_sitl.launch vehicle:=iris_rplidar
+roslaunch px4 mavros_posix_sitl.launch vehicle:=iris_rplidarW
 # rviz
 rosrun tf static_transform_publisher 0 0 0 0 0 0 map rplidar_link 5.5
 ```
@@ -467,68 +467,70 @@ int main(int argc,char** argv){
 
 ### 5.2 雷达避障代码
 
+这里必须吐槽，雷达有时候会“抽风”，莫名读到很近的数据，所以必须以**连续读到近**的数据为标准，才算是遇到障碍物。
+
+```cpp
+#include <ros/ros.h>
+#include <sensor_msgs/LaserScan.h>
+#include <geometry_msgs/PoseStamped.h>
+#include <geometry_msgs/TwistStamped.h>
+#include <algorithm>
+
+ros::Subscriber scan_sub;
+ros::Publisher vel_pub;
+ros::Subscriber pos_sub;
+
+geometry_msgs::PoseStamped cur;
+geometry_msgs::PoseStamped target;
+
+const int N = 10;
+int cnt = 0;
+int counter = 0;
 
 
-### world
+void lidar_cb(const sensor_msgs::LaserScan msg) {
+  ROS_INFO("%lf",msg.ranges[180]);
+  if(msg.ranges[180]<1.5f) cnt++;
+  else cnt = 0;
+  
+  if(cnt>=20) {
+    ROS_WARN("DANGER");
+    counter = 10;
+  }
+  
+  geometry_msgs::TwistStamped cmd;
+  if(counter>0) {
+    cmd.twist.linear.x=0.0f;
+    cmd.twist.linear.y=0.0f;
+    cmd.twist.linear.z=0.5f;
+    counter--;
+  } else {
+    cmd.twist.linear.x=0.5f;
+    cmd.twist.linear.y=0.0f;
+    cmd.twist.linear.z=0.0f;
+  }
 
-```xml
-<?xml version="1.0"?>
-<launch>
-    <!-- MAVROS posix SITL environment launch script -->
-    <!-- launches MAVROS, PX4 SITL, Gazebo environment, and spawns vehicle -->
-    <!-- vehicle pose -->
-    <arg name="x" default="0"/>
-    <arg name="y" default="0"/>
-    <arg name="z" default="0"/>
-    <arg name="R" default="0"/>
-    <arg name="P" default="0"/>
-    <arg name="Y" default="0"/>
-    <!-- vehicle model and world -->
-    <arg name="est" default="ekf2"/>
-    <arg name="vehicle" default="iris"/>
-    <arg name="world" default="$(find mavlink_sitl_gazebo)/worlds/empty.world"/>
-    <arg name="sdf" default="$(find mavlink_sitl_gazebo)/models/$(arg vehicle)/$(arg vehicle).sdf"/>
+  cmd.header.stamp = ros::Time::now();
+  vel_pub.publish(cmd);
+}
 
-    <!-- gazebo configs -->
-    <arg name="gui" default="true"/>
-    <arg name="debug" default="false"/>
-    <arg name="verbose" default="false"/>
-    <arg name="paused" default="false"/>
-    <arg name="respawn_gazebo" default="false"/>
-    <!-- MAVROS configs -->
-    <arg name="fcu_url" default="udp://:14540@localhost:14557"/>
-    <arg name="respawn_mavros" default="false"/>
-    <!-- PX4 configs -->
-    <arg name="interactive" default="true"/>
-    <!-- PX4 SITL and Gazebo -->
-    <include file="$(find px4)/launch/posix_sitl.launch">
-        <arg name="x" value="$(arg x)"/>
-        <arg name="y" value="$(arg y)"/>
-        <arg name="z" value="$(arg z)"/>
-        <arg name="R" value="$(arg R)"/>
-        <arg name="P" value="$(arg P)"/>
-        <arg name="Y" value="$(arg Y)"/>
-        <arg name="world" value="$(arg world)"/>
-        <arg name="vehicle" value="$(arg vehicle)"/>
-        <arg name="sdf" value="$(arg sdf)"/>
-        <arg name="gui" value="$(arg gui)"/>
-        <arg name="interactive" value="$(arg interactive)"/>
-        <arg name="debug" value="$(arg debug)"/>
-        <arg name="verbose" value="$(arg verbose)"/>
-        <arg name="paused" value="$(arg paused)"/>
-        <arg name="respawn_gazebo" value="$(arg respawn_gazebo)"/>
-    </include>
-    <!-- MAVROS -->
-    <include file="$(find mavros)/launch/px4.launch">
-        <!-- GCS link is provided by SITL -->
-        <arg name="gcs_url" value=""/>
-        <arg name="fcu_url" value="$(arg fcu_url)"/>
-        <arg name="respawn_mavros" value="$(arg respawn_mavros)"/>
-    </include>
-</launch>
+void pos_cb(const geometry_msgs::PoseStamped msg) {
+  cur = msg;
+}
+
+int main(int argc,char**argv) {
+  ros::init(argc, argv, "lidar_node");
+  ros::NodeHandle nh;
+  
+  scan_sub = nh.subscribe("/laser/scan", 10, lidar_cb);
+  vel_pub = nh.advertise<geometry_msgs::TwistStamped>
+  ("mavros/setpoint_velocity/cmd_vel", 10);
+  pos_sub = nh.subscribe("/mavros/local_position/pose", 10, pos_cb);
+
+  ros::spin();
+  return 0;
+}
 ```
-
-
 
 ## 6 Simulink
 
