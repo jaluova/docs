@@ -16,7 +16,7 @@ const ACMNote = defineNoteConfig({
       collapsed: false,
       icon: 'ph:graph',
       items: 'auto',
-    }
+    },
   ]
 })
 

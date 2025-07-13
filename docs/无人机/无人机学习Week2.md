@@ -265,6 +265,7 @@ rosparam set /mavros/px4/param/NAV_RCL_ACT 0     # 禁用失控保护
 # rosrun mavros mavsafety arm  			 # 解锁无人机
 
 # 使用rosservice
+rosrun mavros mavparam set COM_RCL_EXCEPT 4
 rosservice call /mavros/set_mode "custom_mode: 'OFFBOARD'"
 rosservice call /mavros/cmd/arming "value: true"
 ```
@@ -436,7 +437,7 @@ int main(int argc, char**argv)
 ## 5 激光雷达避障
 
 ```sh
-roslaunch px4 mavros_posix_sitl.launch vehicle:=iris_rplidarW
+roslaunch px4 mavros_posix_sitl.launch vehicle:=iris_rplidar
 # rviz
 rosrun tf static_transform_publisher 0 0 0 0 0 0 map rplidar_link 5.5
 ```

@@ -1,6 +1,7 @@
 ---
 title: Affine
 tag: 'crypto'
+icon: 'lucide:diff'
 createTime: 2025/03/14 14:52:23
 permalink: /security/Affine/
 ---

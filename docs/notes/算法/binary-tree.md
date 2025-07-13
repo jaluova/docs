@@ -1,5 +1,6 @@
 ---
 title: 二叉树的遍历
+icon: 'simple-icons:deepl' 
 createTime: 2025/03/16 12:06:58
 permalink: /algorithm/oxo75cd5/
 ---

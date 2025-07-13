@@ -1,6 +1,7 @@
 ---
 title: BabyRSA
 tag: 'crypto'
+icon: 'simple-icons:deepl' 
 createTime: 2025/03/14 14:45:00
 permalink: /security/3osjmk7y/
 ---

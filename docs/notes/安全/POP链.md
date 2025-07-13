@@ -1,5 +1,6 @@
 ---
 title: POP链
+icon: 'simple-icons:deepl' 
 createTime: 2025/02/04 17:03:22
 permalink: /security/POP-chain/
 ---

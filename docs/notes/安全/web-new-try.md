@@ -1,6 +1,7 @@
 ---
 title: web入门
 createTime: 2025/03/23 15:32:25
+icon: 'simple-icons:deepl' 
 permalink: /security/6n77geb9/
 ---
 

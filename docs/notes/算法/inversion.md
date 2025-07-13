@@ -1,6 +1,7 @@
 ---
 title: 逆序对
 createTime: 2025/03/28 14:13:28
+icon: 'material-symbols-light:arrow-range-rounded'
 permalink: /algorithm/zkhyi7v5/
 ---
 

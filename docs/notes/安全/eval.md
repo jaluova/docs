@@ -1,5 +1,6 @@
 ---
 title: 通过eval( )执行系统命令
+icon: 'simple-icons:deepl' 
 tags:
     - web
     - php

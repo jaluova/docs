@@ -5,6 +5,7 @@ tags:
     - php
     - serialize
     - review
+icon: 'tabler:binary-tree-filled'
 createTime: 2025/02/05 11:18:54
 permalink: /security/unserialize/
 ---
